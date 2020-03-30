@@ -1,3 +1,7 @@
+#@AB - input/ouput folders ignored
+cea/workflows/input
+cea/workflows/output
+
 # sphynx documentation builds
 doc/_build
 

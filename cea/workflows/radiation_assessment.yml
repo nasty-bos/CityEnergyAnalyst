@@ -1,4 +1,3 @@
-
-
-- script: schedule-maker
 - script: radiation
+  parameters:
+    annual-radiation-threshold: 400
