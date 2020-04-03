@@ -145,18 +145,18 @@ def do_script_step(config, step):
     run(config, py_script, **py_parameters)
 
 if __name__ == '__main__':
-    path = r'D:\Slab_Fixed\inputs'
+    path = r'C:\Users\HHM\Desktop\MVP\inputs'
     config = cea.config.Configuration()
     """Set project and scenario names"""
-    project_name = r'D:\Slab_Fixed\outputs\slab_fixed'
+    project_name = r'C:\Users\HHM\Desktop\MVP\outputs\podium'
     workbook_names = os.path.join(path, r'file_names.xlsx')
     excel_names = xlrd.open_workbook(workbook_names)
-    sheet_with_scenarios_names = excel_names.sheet_by_index(1)
+    sheet_with_scenarios_names = excel_names.sheet_by_index(0)
     scenarios_names = sheet_with_scenarios_names.col_values(3)
     """Get input files"""
-    zones_directory = os.path.join(path, r'slab\zones')
-    surroundings_directory = os.path.join(path, r'slab\surroundings')
-    typologies_directory = os.path.join(path, r'slab\typologies_dbf')
+    zones_directory = os.path.join(path, r'podium\zones')
+    surroundings_directory = os.path.join(path, r'podium\surroundings')
+    typologies_directory = os.path.join(path, r'podium\typologies_dbf')
     zone_files = []
     surroundings_files = []
     typology_files = []
@@ -178,9 +178,9 @@ if __name__ == '__main__':
     for surroundings, zone in zip(surroundings_files, zone_files):
         for index, typology in enumerate(typology_files):
             """Set paths"""
-            os.environ["RAYPATH"] = r'C:\Daysim'
-            os.environ["GDAL_DATA"] = r'C:\Users\Anastasiya Bosova\Documents\CityEnergyAnalyst\Dependencies\Python\Library\share\gdal'
-            os.environ["PROJ_LIB"] = r'C:\Users\Anastasiya Bosova\Documents\CityEnergyAnalyst\Dependencies\Python\Library\share'
+            os.environ["RAYPATH"] = r'C:\Users\HHM\Documents\CityEnergyAnalyst\Dependencies\Daysim'
+            os.environ["GDAL_DATA"] = r'C:\Users\HHM\Documents\CityEnergyAnalyst\Dependencies\Python\Library\share\gdal'
+            os.environ["PROJ_LIB"] = r'C:\Users\HHM\Documents\CityEnergyAnalyst\Dependencies\Python\Library\share'
 
             scenario = scenarios_names[k]
             config.multiprocessing = True
@@ -196,23 +196,23 @@ if __name__ == '__main__':
             locator = cea.inputlocator.InputLocator(current_scenario_path)
 
             if index == 0:
-                config.workflow.workflow = r'C:\CityEnergyAnalyst\cea\workflows\creation.yml'
+                config.workflow.workflow = r'C:\Users\HHM\Documents\CityEnergyAnalyst\CityEnergyAnalyst\cea\workflows\creation.yml'
                 main(config)
-                config.workflow.workflow = r'C:\CityEnergyAnalyst\cea\workflows\mapper.yml'
+                config.workflow.workflow = r'C:\Users\HHM\Documents\CityEnergyAnalyst\CityEnergyAnalyst\cea\workflows\mapper.yml'
                 main(config)
-                config.workflow.workflow = r'C:\CityEnergyAnalyst\cea\workflows\radiation_assessment.yml'
+                config.workflow.workflow = r'C:\Users\HHM\Documents\CityEnergyAnalyst\CityEnergyAnalyst\cea\workflows\radiation_assessment.yml'
                 main(config)
-                config.workflow.workflow = r'C:\CityEnergyAnalyst\cea\workflows\emissions_assessment.yml'
+                config.workflow.workflow = r'C:\Users\HHM\Documents\CityEnergyAnalyst\CityEnergyAnalyst\cea\workflows\emissions_assessment.yml'
                 main(config)
             else:
                 previous_scenario = os.path.join(project_name, scenarios_names[k-1])
                 locator_previous = cea.inputlocator.InputLocator(previous_scenario)
-                config.workflow.workflow = r'C:\CityEnergyAnalyst\cea\workflows\creation.yml'
+                config.workflow.workflow = r'C:\Users\HHM\Documents\CityEnergyAnalyst\CityEnergyAnalyst\cea\workflows\creation.yml'
                 main(config)
-                config.workflow.workflow = r'C:\CityEnergyAnalyst\cea\workflows\mapper.yml'
+                config.workflow.workflow = r'C:\Users\HHM\Documents\CityEnergyAnalyst\CityEnergyAnalyst\cea\workflows\mapper.yml'
                 main(config)
                 move(locator_previous.get_solar_radiation_folder(), os.path.join(current_scenario_path, r'outputs\data'))
-                config.workflow.workflow = r'C:\CityEnergyAnalyst\cea\workflows\emissions_assessment.yml'
+                config.workflow.workflow = r'C:\Users\HHM\Documents\CityEnergyAnalyst\CityEnergyAnalyst\cea\workflows\emissions_assessment.yml'
                 main(config)
             k = k + 1
 
