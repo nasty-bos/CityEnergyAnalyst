@@ -4,7 +4,7 @@ inputlocator.py - locate input files by name based on the reference folder struc
 import os
 import shutil
 import tempfile
-
+import time
 import cea.config
 
 __author__ = "Daren Thomas"
@@ -35,7 +35,16 @@ class InputLocator(object):
         If it doesn't exist yet, attempt to make it with `os.makedirs`."""
         folder = os.path.join(*components)
         if not os.path.exists(folder):
-            os.makedirs(folder)
+            try:
+                os.makedirs(folder)
+            except WindowsError as e:
+                if "[Error 183] Cannot create a file when that file already exists" in e.__str__():
+                    print("Error in creating [%s] - folder was created before I could create it")
+                    time.sleep(0.1)
+                    assert os.path.exists(folder), \
+                        "Folder [%s] still not created or was deleted - aborting"
+                else:
+                    raise e
         return folder
 
     def ensure_parent_folder_exists(self, file_path):

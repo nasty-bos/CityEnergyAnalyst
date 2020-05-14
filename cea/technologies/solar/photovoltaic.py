@@ -773,6 +773,14 @@ def main(config):
     date_local = solar_equations.calc_datetime_local_from_weather_file(weather_data, latitude, longitude)
 
     n = len(buildings_names)
+
+    ###########################################################################
+    #TODO: test to see if it solves race condition in creating solar output folder
+    if not os.path.exists(locator.solar_potential_folder()):
+        print("creating solar output folder [%s] to avoid later race condition" %locator.solar_potential_folder())
+        os.mkdir(locator.get_solar_radiation_folder())
+    ###########################################################################
+
     cea.utilities.parallel.vectorize(calc_PV, config.get_number_of_processes())(repeat(locator, n),
                                                                                 repeat(config, n),
                                                                                 repeat(latitude, n),

@@ -145,12 +145,13 @@ def do_script_step(config, step):
     run(config, py_script, **py_parameters)
 
 if __name__ == '__main__':
-    path = r'C:\Users\HHM\Desktop\MVP\inputs'
+    path = r'C:\Users\HHM\Desktop\MVP_Podium_Bangkok_2\inputs'
     config = cea.config.Configuration()
     """Set project and scenario names"""
-    project_name = r'C:\Users\HHM\Desktop\MVP\outputs\podium'
+    project_name = r'C:\Users\HHM\Desktop\MVP_Podium_Bangkok_2\outputs'
     workbook_names = os.path.join(path, r'file_names.xlsx')
     excel_names = xlrd.open_workbook(workbook_names)
+    
     sheet_with_scenarios_names = excel_names.sheet_by_index(0)
     scenarios_names = sheet_with_scenarios_names.col_values(3)
     """Get input files"""

@@ -49,18 +49,18 @@ if __name__ == '__main__':
     cleanup(get_output_dir())
 
     control = [
-        ("zone_cr45_15", "zone1", "zones", 0),
-        ("zone_cr45_31", "zone2", "zones", 0),
-        ("zone_cr45_45", "zone3", "zones", 0),
-        ("surroundings_cr45_15", "zone1", "surroundings", 1),
-        ("surroundings_cr45_31", "zone2", "surroundings", 1),
-        ("surroundings_cr45_45", "zone3", "surroundings", 1),
+        ("zone_pb_15", "zone1", "zones", 0),
+        ("zone_pb_31", "zone2", "zones", 0),
+        ("zone_pb_45", "zone3", "zones", 0),
+        ("surroundings_pb_15", "zone1", "surroundings", 1),
+        ("surroundings_pb_31", "zone2", "surroundings", 1),
+        ("surroundings_pb_45", "zone3", "surroundings", 1),
     ]
 
     for ctl_params in control:
 
         str_startswith, zone_folder_id, zone_subfolder, col = ctl_params
-        filenames = get_filenames("file_names.xlsx", 2, col)
+        filenames = get_filenames("file_names.xlsx", 0, col)
         mask = [x.startswith(str_startswith) for x in filenames]
         filenames = list(compress(filenames, mask))
         print("copying these files", filenames)

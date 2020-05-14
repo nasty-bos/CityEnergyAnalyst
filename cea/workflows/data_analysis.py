@@ -27,8 +27,8 @@ __status__ = "Production"
 
 
 if __name__ == '__main__':
-    project_path = r'D:\Courtyard_Test\outputs\courtyard_fixed'
-    results_file = r'C:\Users\Anastasiya Bosova\Desktop\Results\results.xlsx'
+    project_path = r'D:\MVP_Podium\outputs\podium'
+    results_file = r'C:\Users\HHM\Desktop\Thesis\Results\results.xlsx'
     scenarios = []
     pv_values = []
     demand_values = []
@@ -40,7 +40,7 @@ if __name__ == '__main__':
     grid_values = []
     new_sum_grid = []
     #get list of paths to different scenarios
-    for scenario in os.listdir(project_path)[:-1]:
+    for scenario in os.listdir(project_path):
         scenarios.append(os.path.join(project_path, scenario))
         scenarios = sorted(scenarios)
     print(scenarios)
@@ -53,9 +53,16 @@ if __name__ == '__main__':
         #read total pv production
         with open(workbook_pv) as pv:
             headerline = pv.next()
+
+            header = headerline.split(",")
+
+            search_for_string = "E_PV_gen_kWh"
+            col = header.index(search_for_string)
+
             sum_pv = 0
             for row in csv.reader(pv):
-                sum_pv += float(row[6])/1000 #in MWh
+                sum_pv += float(row[col])/1000 #in MWh
+            sum_pv = sum_pv * 2.78
             pv_values.append(sum_pv)
             #print(sum_pv)
 
