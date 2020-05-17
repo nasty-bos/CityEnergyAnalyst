@@ -49,12 +49,10 @@ if __name__ == '__main__':
     cleanup(get_output_dir())
 
     control = [
-        ("zone_pb_15", "zone1", "zones", 0),
-        ("zone_pb_31", "zone2", "zones", 0),
-        ("zone_pb_45", "zone3", "zones", 0),
-        ("surroundings_pb_15", "zone1", "surroundings", 1),
-        ("surroundings_pb_31", "zone2", "surroundings", 1),
-        ("surroundings_pb_45", "zone3", "surroundings", 1),
+        ("zone_s_15", "zone1", "zones", 0),
+        ("zone_s_31", "zone2", "zones", 0),
+        ("surroundings_s_15", "zone1", "surroundings", 1),
+        ("surroundings_s_31", "zone2", "surroundings", 1),
     ]
 
     for ctl_params in control:
@@ -64,7 +62,7 @@ if __name__ == '__main__':
         mask = [x.startswith(str_startswith) for x in filenames]
         filenames = list(compress(filenames, mask))
         print("copying these files", filenames)
-        extenstions = ["shp", "shx", "qpj", "prj", "cpg"]
+        extenstions = ["shp", "shx", "prj", "cpg"]
 
         tmp = tempfile.mkdtemp()
         for name in filenames:
